@@ -16,7 +16,9 @@ const App = (props) => {
     <BrowserRouter>
       <Switch>
         <Route exact path="/">
-          <WelcomeScreen errorCount={errorCount} />
+          <WelcomeScreen
+            errorCount={errorCount}
+          />
         </Route>
         <Route exact path="/login">
           <AuthScreen />
