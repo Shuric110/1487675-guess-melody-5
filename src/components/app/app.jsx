@@ -10,6 +10,8 @@ import QuestionArtistScreen from "../question-artist-screen/question-artist-scre
 import QuestionGenreScreen from "../question-genre-screen/question-genre-screen";
 import WinScreen from "../win-screen/win-screen";
 
+import {questionPropType} from "../../props";
+
 const App = (props) => {
   const {errorCount, questions} = props;
 
@@ -60,7 +62,7 @@ const App = (props) => {
 
 App.propTypes = {
   errorCount: PropTypes.number.isRequired,
-  questions: PropTypes.array.isRequired // ********
+  questions: PropTypes.arrayOf(questionPropType.isRequired).isRequired,
 };
 
 export default App;
