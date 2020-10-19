@@ -1,6 +1,6 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
-import {QuestionType} from "../../const";
+import {questionGenrePropType} from "../../props";
 
 export default class QuestionGenreScreen extends PureComponent {
   constructor(props) {
@@ -41,7 +41,12 @@ export default class QuestionGenreScreen extends PureComponent {
 
         <section className="game__screen">
           <h2 className="game__title">Выберите {genre} треки</h2>
-          <form className="game__tracks">
+          <form className="game__tracks"
+            onSubmit={(evt) => {
+              evt.preventDefault();
+              onAnswer(question, this.state.answers);
+            }}
+          >
 
             {answers.map((answer, i) => (
               <div className="track" key={i}>
@@ -51,7 +56,7 @@ export default class QuestionGenreScreen extends PureComponent {
                 </div>
                 <div className="game__answer">
                   <input className="game__input visually-hidden" type="checkbox" name="answer"
-                    value="answer-{i}" id="answer-{i}" checked={userAnswers[i]}
+                    value={`answer-${i}`} id={`answer-${i}`} checked={userAnswers[i]}
                     onChange={
                       (evt) => {
                         const newAnswers = userAnswers.slice();
@@ -60,13 +65,10 @@ export default class QuestionGenreScreen extends PureComponent {
                       }
                     }
                   />
-                  <label className="game__check" htmlFor="answer-{i}">Отметить</label>
+                  <label className="game__check" htmlFor={`answer-${i}`}>Отметить</label>
                 </div>
               </div>
             ))}
-
-
-
 
             <button className="game__submit button" type="submit">Ответить</button>
           </form>
@@ -78,12 +80,5 @@ export default class QuestionGenreScreen extends PureComponent {
 
 QuestionGenreScreen.propTypes = {
   onAnswer: PropTypes.func.isRequired,
-  question: PropTypes.shape({
-    answers: PropTypes.arrayOf(PropTypes.shape({
-      src: PropTypes.string.isRequired,
-      genre: PropTypes.string.isRequired,
-    })).isRequired,
-    genre: PropTypes.string.isRequired,
-    type: PropTypes.oneOf([QuestionType.ARTIST, QuestionType.GENRE]).isRequired,
-  }).isRequired,
+  question: questionGenrePropType.isRequired,
 };
