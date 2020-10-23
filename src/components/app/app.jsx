@@ -6,8 +6,6 @@ import WelcomeScreen from "../welcome-screen/welcome-screen";
 import GameScreen from "../game-screen/game-screen";
 import AuthScreen from "../auth-screen/auth-screen";
 import LoseScreen from "../lose-screen/lose-screen";
-import QuestionArtistScreen from "../question-artist-screen/question-artist-screen";
-import QuestionGenreScreen from "../question-genre-screen/question-genre-screen";
 import WinScreen from "../win-screen/win-screen";
 
 const App = (props) => {
@@ -40,18 +38,6 @@ const App = (props) => {
         </Route>
         <Route exact path="/lose">
           <LoseScreen />
-        </Route>
-        <Route exact path="/dev-artist">
-          <QuestionArtistScreen
-            question={questions[1]}
-            onAnswer={() => {}}
-          />
-        </Route>
-        <Route exact path="/dev-genre">
-          <QuestionGenreScreen
-            question={questions[0]}
-            onAnswer={() => {}}
-          />
         </Route>
       </Switch>
     </BrowserRouter>
