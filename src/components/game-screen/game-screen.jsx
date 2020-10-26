@@ -6,6 +6,11 @@ import QuestionArtistScreen from "../question-artist-screen/question-artist-scre
 import QuestionGenreScreen from "../question-genre-screen/question-genre-screen";
 import {questionPropType} from "../../props";
 
+import withAudioPlayer from "../../hocs/with-audio-player/with-audio-player";
+
+const QuestionArtistScreenWithAudioPlayer = withAudioPlayer(QuestionArtistScreen);
+const QuestionGenreScreenWithAudioPlayer = withAudioPlayer(QuestionGenreScreen);
+
 class GameScreen extends PureComponent {
   constructor(props) {
     super(props);
@@ -28,7 +33,7 @@ class GameScreen extends PureComponent {
     switch (question.type) {
       case QuestionType.ARTIST:
         return (
-          <QuestionArtistScreen
+          <QuestionArtistScreenWithAudioPlayer
             question={question}
             onAnswer={() => {
               this.setState((currentState) => ({
@@ -39,7 +44,7 @@ class GameScreen extends PureComponent {
         );
       case QuestionType.GENRE:
         return (
-          <QuestionGenreScreen
+          <QuestionGenreScreenWithAudioPlayer
             question={question}
             onAnswer={() => {
               this.setState((currentState) => ({
