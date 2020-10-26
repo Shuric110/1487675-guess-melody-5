@@ -9,6 +9,10 @@ export const ActionCreator = {
     type: ActionType.INCREMENT_STEP,
     payload: 1,
   }),
+  incrementMistakes: () => ({
+    type: ActionType.INCREMENT_MISTAKES,
+    payload: 1,
+  }),
   resetGame: () => ({
     type: ActionType.RESET_GAME,
   })

@@ -7,6 +7,7 @@ import {QuestionType} from "../../const";
 import QuestionArtistScreen from "../question-artist-screen/question-artist-screen";
 import QuestionGenreScreen from "../question-genre-screen/question-genre-screen";
 import {questionPropType} from "../../props";
+import {isAnswerCorrect} from "../../game";
 
 import withAudioPlayer from "../../hocs/with-audio-player/with-audio-player";
 
@@ -53,14 +54,20 @@ GameScreen.propTypes = {
 
 const mapStateToProps = (state) => ({
   step: state.step,
+  questions: state.questions,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   resetGame() {
     dispatch(ActionCreator.resetGame());
   },
-  onUserAnswer() {
+
+  onUserAnswer(question, userAnswer) {
     dispatch(ActionCreator.incrementStep());
+
+    if (!isAnswerCorrect(question, userAnswer)) {
+      dispatch(ActionCreator.incrementMistakes());
+    }
   },
 });
 
