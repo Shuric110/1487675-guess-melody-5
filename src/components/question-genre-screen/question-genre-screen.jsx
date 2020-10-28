@@ -1,6 +1,7 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import {questionGenrePropType} from "../../props";
+import Mistakes from "../mistakes/mistakes";
 
 export default class QuestionGenreScreen extends PureComponent {
   constructor(props) {
@@ -32,11 +33,7 @@ export default class QuestionGenreScreen extends PureComponent {
               style={{filter: `url(#blur)`, transform: `rotate(-90deg) scaleY(-1)`, transformOrigin: `center`}} />
           </svg>
 
-          <div className="game__mistakes">
-            <div className="wrong"></div>
-            <div className="wrong"></div>
-            <div className="wrong"></div>
-          </div>
+          <Mistakes />
         </header>
 
         <section className="game__screen">
