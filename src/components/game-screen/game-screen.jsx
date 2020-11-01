@@ -13,7 +13,7 @@ import withAudioPlayer from "../../hocs/with-audio-player/with-audio-player";
 import withUserAnswer from "../../hocs/with-user-answer/with-user-answer";
 
 const QuestionArtistScreenWithAudioPlayer = withAudioPlayer(QuestionArtistScreen);
-const QuestionGenreScreenWithAudioPlayer = withUserAnswer(withAudioPlayer(QuestionGenreScreen));
+const QuestionGenreScreenWithAudioPlayer = withAudioPlayer(withUserAnswer(QuestionGenreScreen));
 
 const GameScreen = (props) => {
   const {questions, step, onUserAnswer, resetGame} = props;

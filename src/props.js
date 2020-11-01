@@ -1,11 +1,13 @@
 import PropTypes from "prop-types";
 import {QuestionType} from "./const.js";
 
+export const answerGenrePropType = PropTypes.shape({
+  src: PropTypes.string.isRequired,
+  genre: PropTypes.string.isRequired,
+});
+
 export const questionGenrePropType = PropTypes.shape({
-  answers: PropTypes.arrayOf(PropTypes.shape({
-    src: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-  })).isRequired,
+  answers: PropTypes.arrayOf(answerGenrePropType).isRequired,
   genre: PropTypes.string.isRequired,
   type: PropTypes.oneOf([QuestionType.GENRE]),
 });

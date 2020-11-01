@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import {questionGenrePropType} from "../../props";
 import Mistakes from "../mistakes/mistakes";
+import QuestionGenreItem from "../question-genre-item/question-genre-item";
 
 const QuestionGenreScreen = (props) => {
   const {onAnswer, onChange, question, renderPlayer, userAnswers} = props;
@@ -36,21 +37,14 @@ const QuestionGenreScreen = (props) => {
         >
 
           {answers.map((answer, i) => (
-            <div className="track" key={i}>
-              {renderPlayer(answer.src, i)}
-
-              <div className="game__answer">
-                <input className="game__input visually-hidden" type="checkbox" name="answer"
-                  value={`answer-${i}`} id={`answer-${i}`} checked={userAnswers[i]}
-                  onChange={
-                    (evt) => {
-                      onChange(i, evt.target.checked);
-                    }
-                  }
-                />
-                <label className="game__check" htmlFor={`answer-${i}`}>Отметить</label>
-              </div>
-            </div>
+            <QuestionGenreItem
+              key={i}
+              renderPlayer={renderPlayer}
+              onChange={onChange}
+              index={i}
+              answer={answer}
+              userAnswer={userAnswers[i]}
+            />
           ))}
 
           <button className="game__submit button" type="submit">Ответить</button>
