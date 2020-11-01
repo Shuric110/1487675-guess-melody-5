@@ -31,12 +31,22 @@ const App = () => {
         <Route exact path="/login">
           <AuthScreen />
         </Route>
-        <Route exact path="/result">
-          <WinScreen />
-        </Route>
-        <Route exact path="/lose">
-          <LoseScreen />
-        </Route>
+        <Route exact
+          path="/result"
+          render={({history}) => (
+            <WinScreen
+              onReplayButtonClick={() => history.push(`/game`)}
+            />
+          )}
+        />
+        <Route exact
+          path="/lose"
+          render={({history}) => (
+            <LoseScreen
+              onReplayButtonClick={() => history.push(`/game`)}
+            />
+          )}
+        />
       </Switch>
     </BrowserRouter>
   );

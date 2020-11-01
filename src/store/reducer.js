@@ -1,6 +1,5 @@
 import {extend} from "../util";
 import {ActionType} from "./action";
-import {MAX_MISTAKES_COUNT} from "../const";
 
 import questions from "../mocks/questions";
 
@@ -18,13 +17,9 @@ const reducer = (state = initialState, action) => {
       });
 
     case ActionType.INCREMENT_MISTAKES:
-      const mistakes = state.mistakes + action.payload;
-
-      if (mistakes >= MAX_MISTAKES_COUNT) {
-        return extend({}, initialState);
-      }
-
-      return extend(state, {mistakes});
+      return extend(state, {
+        mistakes: state.mistakes + action.payload
+      });
 
     case ActionType.RESET_GAME:
       return extend({}, initialState);

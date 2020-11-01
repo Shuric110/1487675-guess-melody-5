@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {Redirect} from 'react-router-dom';
 import {connect} from "react-redux";
 import {ActionCreator} from "../../store/action";
-import {QuestionType} from "../../const";
+import {QuestionType, MAX_MISTAKES_COUNT} from "../../const";
 import QuestionArtistScreen from "../question-artist-screen/question-artist-screen";
 import QuestionGenreScreen from "../question-genre-screen/question-genre-screen";
 import {questionPropType} from "../../props";
@@ -16,12 +16,14 @@ const QuestionArtistScreenWithAudioPlayer = withAudioPlayer(QuestionArtistScreen
 const QuestionGenreScreenWithAudioPlayer = withAudioPlayer(withUserAnswer(QuestionGenreScreen));
 
 const GameScreen = (props) => {
-  const {questions, step, onUserAnswer, resetGame} = props;
+  const {questions, step, onUserAnswer, mistakes} = props;
+
+  if (mistakes >= MAX_MISTAKES_COUNT) {
+    return <Redirect to="/lose" />;
+  }
 
   if (step >= questions.length) {
-    resetGame();
-
-    return <Redirect to="/" />;
+    return <Redirect to="/result" />;
   }
 
   const question = questions[step];
@@ -49,12 +51,13 @@ const GameScreen = (props) => {
 GameScreen.propTypes = {
   questions: PropTypes.arrayOf(questionPropType.isRequired).isRequired,
   step: PropTypes.number.isRequired,
+  mistakes: PropTypes.number.isRequired,
   onUserAnswer: PropTypes.func.isRequired,
-  resetGame: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
   step: state.step,
+  mistakes: state.mistakes,
   questions: state.questions,
 });
 
