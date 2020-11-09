@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from 'prop-types';
 import {Redirect} from 'react-router-dom';
 import {connect} from "react-redux";
-import {ActionCreator} from "../../store/action";
+import {incrementStep, incrementMistakes} from "../../store/action";
 import {QuestionType, MAX_MISTAKES_COUNT} from "../../const";
 import QuestionArtistScreen from "../question-artist-screen/question-artist-screen";
 import QuestionGenreScreen from "../question-genre-screen/question-genre-screen";
@@ -62,15 +62,11 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  resetGame() {
-    dispatch(ActionCreator.resetGame());
-  },
-
   onUserAnswer(question, userAnswer) {
-    dispatch(ActionCreator.incrementStep());
+    dispatch(incrementStep());
 
     if (!isAnswerCorrect(question, userAnswer)) {
-      dispatch(ActionCreator.incrementMistakes());
+      dispatch(incrementMistakes());
     }
   },
 });
