@@ -18,8 +18,8 @@ Mistakes.propTypes = {
   count: PropTypes.number.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  count: state.mistakes,
+const mapStateToProps = ({GAME}) => ({
+  count: GAME.mistakes,
 });
 
 export {Mistakes};
