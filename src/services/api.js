@@ -7,6 +7,11 @@ const HttpCode = {
   UNAUTHORIZED: 401
 };
 
+export const APIRoute = {
+  QUESTIONS: `/questions`,
+  LOGIN: `/login`,
+};
+
 export default class Api {
   constructor() {
     this._httpClient = axios.create({
@@ -46,11 +51,11 @@ export default class Api {
   }
 
   getQuestions() {
-    return this._httpClient.get(`/questions`);
+    return this._httpClient.get(APIRoute.QUESTIONS);
   }
 
   checkAuthorization() {
-    return this._httpClient.get(`/login`, {__isCheckAuthorization: true})
+    return this._httpClient.get(APIRoute.LOGIN, {__isCheckAuthorization: true})
       .then(true)
       .catch((err) => {
         if (err.response.status !== HttpCode.UNAUTHORIZED) {
@@ -61,6 +66,6 @@ export default class Api {
   }
 
   login(email, password) {
-    return this._httpClient.post(`/login`, {email, password});
+    return this._httpClient.post(APIRoute.LOGIN, {email, password});
   }
 }

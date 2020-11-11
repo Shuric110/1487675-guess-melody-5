@@ -9,3 +9,11 @@ export const AuthorizationStatus = {
 };
 
 export const MAX_MISTAKES_COUNT = 3;
+
+export const AppRoute = {
+  LOGIN: `/login`,
+  LOSE: `/lose`,
+  RESULT: `/result`,
+  ROOT: `/`,
+  GAME: `/game`,
+};

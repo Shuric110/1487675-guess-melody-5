@@ -1,17 +1,19 @@
 import React from "react";
-import {BrowserRouter, Switch, Route} from "react-router-dom";
+import {Router as BrowserRouter, Switch, Route} from "react-router-dom";
+import browserHistory from "../../browser-history";
 
+import PrivateRoute from "../private-route/private-route";
 import WelcomeScreen from "../welcome-screen/welcome-screen";
 import GameScreen from "../game-screen/game-screen";
 import AuthScreen from "../auth-screen/auth-screen";
 import LoseScreen from "../lose-screen/lose-screen";
 import WinScreen from "../win-screen/win-screen";
 
-import {MAX_MISTAKES_COUNT} from "../../const";
+import {MAX_MISTAKES_COUNT, AppRoute} from "../../const";
 
 const App = () => {
   return (
-    <BrowserRouter>
+    <BrowserRouter history={browserHistory}>
       <Switch>
         <Route exact path="/"
           render={({history}) => (
@@ -28,14 +30,19 @@ const App = () => {
             errorCount={MAX_MISTAKES_COUNT}
           />
         </Route>
-        <Route exact path="/login">
-          <AuthScreen />
-        </Route>
         <Route exact
+          path="/login"
+          render={({history}) => (
+            <AuthScreen
+              onReplayButtonClick={() => history.push(AppRoute.GAME)}
+            />
+          )}
+        />
+        <PrivateRoute exact
           path="/result"
           render={({history}) => (
             <WinScreen
-              onReplayButtonClick={() => history.push(`/game`)}
+              onReplayButtonClick={() => history.push(AppRoute.GAME)}
             />
           )}
         />
@@ -43,7 +50,7 @@ const App = () => {
           path="/lose"
           render={({history}) => (
             <LoseScreen
-              onReplayButtonClick={() => history.push(`/game`)}
+              onReplayButtonClick={() => history.push(AppRoute.GAME)}
             />
           )}
         />
