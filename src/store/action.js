@@ -18,3 +18,8 @@ export const incrementMistakes = () => ({
 export const resetGame = () => ({
   type: ActionType.RESET_GAME,
 });
+
+export const loadQuestions = (questions) => ({
+  type: ActionType.LOAD_QUESTIONS,
+  payload: questions,
+});
