@@ -15,6 +15,9 @@ export default class Api {
       withCredentials: true,
     });
 
+    this._handleFailure = this._handleFailure.bind(this);
+    this._handleSuccess = this._handleSuccess.bind(this);
+
     this._httpClient.interceptors.response.use(this._handleSuccess, this._handleFailure);
 
     this._onUnauthorized = null;
@@ -28,7 +31,7 @@ export default class Api {
     const {response} = err;
 
     if (response.status === HttpCode.UNAUTHORIZED) {
-      if (this._onUnauthorized) {
+      if (!err.response.config.__isCheckAuthorization && this._onUnauthorized) {
         this._onUnauthorized();
       }
 
@@ -46,8 +49,15 @@ export default class Api {
     return this._httpClient.get(`/questions`);
   }
 
-  getCheckAuthorization() {
-    return this._httpClient.get(`/login`);
+  checkAuthorization() {
+    return this._httpClient.get(`/login`, {__isCheckAuthorization: true})
+      .then(true)
+      .catch((err) => {
+        if (err.response.status !== HttpCode.UNAUTHORIZED) {
+          throw err;
+        }
+        return false;
+      });
   }
 
   login(email, password) {
