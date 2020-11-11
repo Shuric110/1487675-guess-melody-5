@@ -32,6 +32,7 @@ const GameScreen = (props) => {
     case QuestionType.ARTIST:
       return (
         <QuestionArtistScreenWithAudioPlayer
+          key={step}
           question={question}
           onAnswer={onUserAnswer}
         />
@@ -39,6 +40,7 @@ const GameScreen = (props) => {
     case QuestionType.GENRE:
       return (
         <QuestionGenreScreenWithAudioPlayer
+          key={step}
           question={question}
           onAnswer={onUserAnswer}
         />
